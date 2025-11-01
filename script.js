@@ -72,8 +72,9 @@ const quizData = [
 let shuffledIndices = [];       
 let currentOrderIndex = 0;      
 let wronglyAnsweredIndices = [];
-let isReviewSession = false;
+let isReviewSession = false;    
 
+const answerWrapperElement = document.getElementById('answer-wrapper'); 
 const questionTextElement = document.getElementById('question-text');
 const answerTextElement = document.getElementById('answer-text');
 const questionCounterElement = document.getElementById('question-counter');
@@ -85,16 +86,17 @@ const correctBtn = document.getElementById('correct-btn');
 const wrongBtn = document.getElementById('wrong-btn');
 
 
+
 function setupRound() {
     let indicesToShuffle;
 
     if (isReviewSession && wronglyAnsweredIndices.length > 0) {
         indicesToShuffle = [...wronglyAnsweredIndices];
-        reviewStatusElement.textContent = "Modo de Revisão";
+        reviewStatusElement.textContent = "<< MODO_REVISÃO >>";
     } else {
         indicesToShuffle = Array.from(quizData.keys());
-        isReviewSession = false; 
-        reviewStatusElement.textContent = "";
+        isReviewSession = false;
+        reviewStatusElement.textContent = "STATUS: ONLINE";
     }
     
     wronglyAnsweredIndices = [];
@@ -115,10 +117,10 @@ function loadQuestion() {
     
     questionTextElement.textContent = currentQuestion.question;
     answerTextElement.textContent = currentQuestion.answer;
-    questionCounterElement.textContent = `Pergunta ${currentOrderIndex + 1} de ${shuffledIndices.length}`;
+    questionCounterElement.textContent = `PERGUNTA ${currentOrderIndex + 1} DE ${shuffledIndices.length}`;
     
     userAnswerInputElement.value = "";
-    answerTextElement.classList.add('hidden');
+    answerWrapperElement.classList.add('hidden');
     
     showAnswerBtn.classList.remove('hidden');
     correctBtn.classList.add('hidden');
@@ -127,7 +129,7 @@ function loadQuestion() {
 
 
 function showAnswer() {
-    answerTextElement.classList.remove('hidden');
+    answerWrapperElement.classList.remove('hidden');
     
     showAnswerBtn.classList.add('hidden');
     correctBtn.classList.remove('hidden');
@@ -146,14 +148,12 @@ function handleResult(wasCorrect) {
     if (currentOrderIndex >= shuffledIndices.length) {
         if (wronglyAnsweredIndices.length > 0) {
             isReviewSession = true;
-            alert(`Rodada completa. Vamos revisar as ${wronglyAnsweredIndices.length} perguntas que você errou.`);
+            alert(`SESSÃO COMPLETA. INICIANDO REVISÃO DE ${wronglyAnsweredIndices.length} ARQUIVOS CORROMPIDOS...`);
         } else {
             isReviewSession = false;
-            alert("Parabéns, você acertou tudo! Recomeçando o ciclo completo.");
+            alert("SESSÃO COMPLETA. TODOS OS DADOS VERIFICADOS. REINICIANDO CICLO...");
         }
-        
         setupRound();
-        
     }
     
     loadQuestion();
