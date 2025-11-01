@@ -74,7 +74,8 @@ let currentOrderIndex = 0;
 let wronglyAnsweredIndices = [];
 let isReviewSession = false;    
 
-const answerWrapperElement = document.getElementById('answer-wrapper'); 
+// 3. ELEMENTOS DO DOM:
+const answerWrapperElement = document.getElementById('answer-wrapper');
 const questionTextElement = document.getElementById('question-text');
 const answerTextElement = document.getElementById('answer-text');
 const questionCounterElement = document.getElementById('question-counter');
@@ -86,17 +87,21 @@ const correctBtn = document.getElementById('correct-btn');
 const wrongBtn = document.getElementById('wrong-btn');
 
 
+// 4. FUNÇÕES
 
+/**
+ * Prepara uma nova rodada (principal ou de revisão)
+ */
 function setupRound() {
     let indicesToShuffle;
 
     if (isReviewSession && wronglyAnsweredIndices.length > 0) {
         indicesToShuffle = [...wronglyAnsweredIndices];
-        reviewStatusElement.textContent = "<< MODO_REVISÃO >>";
+        reviewStatusElement.textContent = "REVISANDO ENIGMAS"; // TEXTO DO TEMA
     } else {
         indicesToShuffle = Array.from(quizData.keys());
         isReviewSession = false;
-        reviewStatusElement.textContent = "STATUS: ONLINE";
+        reviewStatusElement.textContent = "PERGAMINHO ABERTO"; // TEXTO DO TEMA
     }
     
     wronglyAnsweredIndices = [];
@@ -110,7 +115,9 @@ function setupRound() {
     shuffledIndices = indicesToShuffle;
 }
 
-
+/**
+ * Carrega a pergunta atual no HTML
+ */
 function loadQuestion() {
     const currentQuestionIndex = shuffledIndices[currentOrderIndex];
     const currentQuestion = quizData[currentQuestionIndex];
@@ -119,24 +126,31 @@ function loadQuestion() {
     answerTextElement.textContent = currentQuestion.answer;
     questionCounterElement.textContent = `PERGUNTA ${currentOrderIndex + 1} DE ${shuffledIndices.length}`;
     
+    // Reseta o estado da interface
     userAnswerInputElement.value = "";
-    answerWrapperElement.classList.add('hidden');
+    answerWrapperElement.classList.add('hidden'); // Esconde a resposta
     
+    // Controla a visibilidade dos botões
     showAnswerBtn.classList.remove('hidden');
     correctBtn.classList.add('hidden');
     wrongBtn.classList.add('hidden');
 }
 
-
+/**
+ * Mostra a resposta e os botões Certo/Errado
+ */
 function showAnswer() {
-    answerWrapperElement.classList.remove('hidden');
+    answerWrapperElement.classList.remove('hidden'); // Mostra a resposta
     
+    // Inverte a visibilidade dos botões
     showAnswerBtn.classList.add('hidden');
     correctBtn.classList.remove('hidden');
     wrongBtn.classList.remove('hidden');
 }
 
-
+/**
+ * Processa o resultado (Certo ou Errado) e avança
+ */
 function handleResult(wasCorrect) {
     if (!wasCorrect) {
         const currentQuestionIndex = shuffledIndices[currentOrderIndex];
@@ -148,10 +162,12 @@ function handleResult(wasCorrect) {
     if (currentOrderIndex >= shuffledIndices.length) {
         if (wronglyAnsweredIndices.length > 0) {
             isReviewSession = true;
-            alert(`SESSÃO COMPLETA. INICIANDO REVISÃO DE ${wronglyAnsweredIndices.length} ARQUIVOS CORROMPIDOS...`);
+            // TEXTO DO TEMA
+            alert(`Pergaminho completo. Vamos decifrar os ${wronglyAnsweredIndices.length} enigmas que você errou...`);
         } else {
             isReviewSession = false;
-            alert("SESSÃO COMPLETA. TODOS OS DADOS VERIFICADOS. REINICIANDO CICLO...");
+            // TEXTO DO TEMA
+            alert("Pergaminho decifrado! Você provou seu conhecimento. Recomeçando o ciclo...");
         }
         setupRound();
     }
@@ -160,9 +176,11 @@ function handleResult(wasCorrect) {
 }
 
 
+// 5. EVENT LISTENERS:
 showAnswerBtn.addEventListener('click', showAnswer);
 correctBtn.addEventListener('click', () => handleResult(true));
 wrongBtn.addEventListener('click', () => handleResult(false));
 
+// 6. INICIALIZAÇÃO:
 setupRound();
 loadQuestion();
