@@ -3,43 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Pergaminho dos Enigmas</title>
+    <title>Estudos - Neon Noir</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="scroll-container">
+    <div class="study-desk-container">
         
-        <div class="scroll-content">
+        <div class="study-card">
             <div id="status-bar">
                 <span id="question-counter"></span>
                 <span id="review-status"></span>
             </div>
             
-            <div class="inscription">
-                <p>~ A Inscrição Antiga ~</p>
+            <div class="question-area">
                 <h2 id="question-text"></h2>
             </div>
             
-            <div id="answer-wrapper" class="revelation hidden">
-                <p>~ A Revelação ~</p>
+            <div id="answer-wrapper" class="answer-area hidden">
                 <p id="answer-text"></p>
             </div>
         </div>
         
-        <div class="scribes-notes">
-            <label for="user-answer-input">~ Suas Anotações ~</label>
-            <textarea id="user-answer-input" rows="3" placeholder="Decifre o enigma aqui..."></textarea>
+        <div class="input-area">
+            <label for="user-answer-input">Sua Resposta:</label>
+            <textarea id="user-answer-input" rows="4" placeholder="Escreva sua resposta aqui..."></textarea>
         </div>
         
         <div class="button-group">
-            <button id="show-answer-btn">Revelar Resposta</button>
+            <button id="show-answer-btn">Mostrar Resposta</button>
             
-            <button id="correct-btn" class="hidden">Decifrei (Certo)</button>
-            <button id="wrong-btn" class="hidden">Revisar (Errei)</button>
+            <button id="correct-btn" class="hidden">Acertou</button>
+            <button id="wrong-btn" class="hidden">Errou</button>
         </div>
     </div>
 
