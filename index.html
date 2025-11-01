@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perguntas e Respostas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div id="status-bar">
+            <span id="question-counter"></span>
+            <span id="review-status"></span>
+        </div>
+        
+        <h2 id="question-text"></h2>
+        
+        <label for="user-answer-input">Sua Resposta:</label>
+        <textarea id="user-answer-input" rows="4" placeholder="Digite sua resposta aqui para praticar..."></textarea>
+        
+        <p id="answer-text" class="hidden"></p>
+        
+        <div class="button-group">
+            <button id="show-answer-btn">Mostrar Resposta</button>
+            
+            <button id="correct-btn" class="hidden">✅ Certo</button>
+            <button id="wrong-btn" class="hidden">❌ Errado</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
